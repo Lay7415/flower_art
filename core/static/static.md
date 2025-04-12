@@ -1,0 +1,1 @@
+this folder will contain static files such as css or images.
