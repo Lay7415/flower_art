@@ -14,6 +14,7 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('first_name', 'last_name', 'email', 'phone')
     exclude = ('user_permissions', 'groups', 'is_superuser', 'last_login', 'is_staff', 'date_joined', 'active')
     list_display = ('username', 'first_name', 'last_name', 'role', 'admin_actions')
+    list_per_page = 20
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -27,6 +28,7 @@ class UserAdmin(admin.ModelAdmin):
 class CourierLocationAdmin(admin.ModelAdmin):
     list_display = ('user', 'longitude', 'latitude', 'admin_actions')
     search_fields = ('user__first_name', 'user__last_name')
+    list_per_page = 20
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -42,6 +44,7 @@ class UserStatusAdmin(admin.ModelAdmin):
     list_display = ('user', 'status', 'admin_actions')
     list_filter = ('status',)
     search_fields = ('user__first_name', 'user__last_name')
+    list_per_page = 20
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -57,6 +60,7 @@ class WorkRecordAdmin(admin.ModelAdmin):
     list_display = ('user', 'start_time', 'end_time', 'admin_actions')
     list_filter = ('start_time', 'end_time')
     search_fields = ('user__first_name', 'user__last_name')
+    list_per_page = 20
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -78,6 +82,7 @@ class FlowerAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'admin_actions')
     search_fields = ('name', 'description')
     inlines = [StockFlowerInline]
+    list_per_page = 20
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -99,6 +104,7 @@ class RibbonAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'admin_actions')
     search_fields = ('name', 'description')
     inlines = [StockRibbonInline]
+    list_per_page = 20
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -120,6 +126,7 @@ class WrapperAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'admin_actions')
     search_fields = ('name', 'description')
     inlines = [StockWrapperInline]
+    list_per_page = 20
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -152,6 +159,7 @@ class BouquetAdmin(admin.ModelAdmin):
     list_filter = ('tag',)
     search_fields = ('name', 'description', 'tag')
     inlines = [BouquetFlowerInline, BouquetRibbonInline, BouquetWrapperInline]
+    list_per_page = 15  # Pagination - 15 bouquets per page
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -167,6 +175,7 @@ class BouquetFlowerAdmin(admin.ModelAdmin):
     list_display = ('bouquet', 'flower', 'count', 'admin_actions')
     list_filter = ('bouquet', 'flower')
     search_fields = ('bouquet__name', 'flower__name')
+    list_per_page = 25  # Pagination - 25 bouquet flowers per page
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -182,6 +191,7 @@ class BouquetRibbonAdmin(admin.ModelAdmin):
     list_display = ('bouquet', 'ribbon', 'length', 'admin_actions')
     list_filter = ('bouquet', 'ribbon')
     search_fields = ('bouquet__name', 'ribbon__name')
+    list_per_page = 25  # Pagination - 25 bouquet ribbons per page
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -197,6 +207,7 @@ class BouquetWrapperAdmin(admin.ModelAdmin):
     list_display = ('bouquet', 'wrapper', 'length', 'admin_actions')
     list_filter = ('bouquet', 'wrapper')
     search_fields = ('bouquet__name', 'wrapper__name')
+    list_per_page = 25  # Pagination - 25 bouquet wrappers per page
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -212,6 +223,7 @@ class StockFlowerAdmin(admin.ModelAdmin):
     list_display = ('flower', 'delivery_date', 'count', 'number', 'status', 'admin_actions')
     list_filter = ('status', 'delivery_date')
     search_fields = ('flower__name', 'number')
+    list_per_page = 20
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -227,6 +239,7 @@ class StockRibbonAdmin(admin.ModelAdmin):
     list_display = ('ribbon', 'delivery_date', 'length', 'status', 'admin_actions')
     list_filter = ('status', 'delivery_date')
     search_fields = ('ribbon__name',)
+    list_per_page = 20 
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -242,6 +255,7 @@ class StockWrapperAdmin(admin.ModelAdmin):
     list_display = ('wrapper', 'delivery_date', 'length', 'status', 'admin_actions')
     list_filter = ('status', 'delivery_date')
     search_fields = ('wrapper__name',)
+    list_per_page = 20 
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -256,6 +270,7 @@ class StockWrapperAdmin(admin.ModelAdmin):
 class BasketBouquetAdmin(admin.ModelAdmin):
     list_display = ('bouquet', 'count', 'admin_actions')
     search_fields = ('bouquet__name',)
+    list_per_page = 20
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -275,6 +290,7 @@ class BasketAdmin(admin.ModelAdmin):
     list_filter = ('status', 'created_at')
     search_fields = ('user__first_name', 'user__last_name')
     inlines = [BasketBouquetInline]
+    list_per_page = 20
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -283,6 +299,10 @@ class BasketAdmin(admin.ModelAdmin):
             f'/admin/core/basket/{obj.pk}/delete/'
         )
     admin_actions.short_description = 'Actions'
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "user":
+            kwargs["queryset"] = CustomUser.objects.filter(role='client')
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 # Inline для добавления оплаты при создании заказа
@@ -297,6 +317,10 @@ class DeliveryInline(admin.StackedInline):
     model = Delivery
     extra = 1
     max_num = 1
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "courier":
+            kwargs["queryset"] = CustomUser.objects.filter(role='courier')
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 @admin.register(Order)
@@ -305,6 +329,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status', 'date')
     search_fields = ('id', 'basket__user__first_name', 'basket__user__last_name')
     inlines = [PaymentInline, DeliveryInline]
+    list_per_page = 15  # Pagination - 15 orders per page
 
     def get_user(self, obj):
         return obj.basket.user if obj.basket else None
@@ -338,12 +363,12 @@ class OrderAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
-
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ('order', 'payment_method', 'card_type', 'status', 'admin_actions')
     list_filter = ('status', 'payment_method', 'card_type')
     search_fields = ('order__id',)
+    list_per_page = 20
     def admin_actions(self, obj):
         return format_html(
             '<a class="button" href="{}">Edit</a>&nbsp;'
@@ -353,12 +378,12 @@ class PaymentAdmin(admin.ModelAdmin):
         )
     admin_actions.short_description = 'Actions'
 
-
 @admin.register(Delivery)
 class DeliveryAdmin(admin.ModelAdmin):
     list_display = ('order', 'courier', 'delivered_date', 'delivered_time', 'address', 'admin_actions')
     list_filter = ('delivered_date',)
     search_fields = ('order__id', 'address', 'courier__first_name', 'courier__last_name')
+    list_per_page = 20
     
     def admin_actions(self, obj):
         return format_html(

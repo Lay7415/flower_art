@@ -308,10 +308,10 @@ class Delivery(models.Model):
     address = models.CharField("Address", max_length=255)
     longitude = models.FloatField("Longitude")
     latitude = models.FloatField("Latitude")
-    
     courier = models.ForeignKey(CustomUser, on_delete=models.SET_NULL,
     null=True, blank=True, related_name="deliveries",
     verbose_name="User")
+    
     
     def __str__(self):
         return f"Delivery for Order #{self.order.id}"
@@ -319,3 +319,4 @@ class Delivery(models.Model):
     class Meta:
         verbose_name = "Delivery"
         verbose_name_plural = "Deliveries"
+        
